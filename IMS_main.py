@@ -37,8 +37,6 @@ class Item:
                  unit="", quantity="", price="", bar_code="",
                  item_id=""):
 
-        self.item_window_on = True
-
         if input_dict == "":
             self.item_dict = {}
             self.item_dict["name_ENG"] = name_ENG
@@ -50,22 +48,22 @@ class Item:
             self.item_dict["item_id"] = item_id
 
         else:
-            self.item_dict = {}
-            for key in input_dict.keys():
-                self.item_dict[key] = input_dict[key]
+            self.name_ENG = input_dict["name_ENG"]
+            self.name_GEO = input_dict["name_GEO"]
+            self.item_dict = input_dict
     
-    def add_to_db(self):
-        if (any(list(self.item_dict.values()))):
-            db.append(self.item_dict)
-        else:
-            self.item_dict["name_ENG"] = input("name_ENG: ")
-            self.item_dict["name_GEO"] = input("name_GEO: ")
-            self.item_dict["unit"] = input("unit: ")
-            self.item_dict["quantity"] = input("quantity: ")
-            self.item_dict["price"] = input("price: ")
-            self.item_dict["bar_code"] = input("bar_code: ")
-            self.item_dict["item_id"] = input("item_id: ")
-            db.append(self.item_dict)
+    # def add_to_db(self):
+    #     if (any(list(self.item_dict.values()))):
+    #         db.append(self.item_dict)
+    #     else:
+    #         self.item_dict["name_ENG"] = input("name_ENG: ")
+    #         self.item_dict["name_GEO"] = input("name_GEO: ")
+    #         self.item_dict["unit"] = input("unit: ")
+    #         self.item_dict["quantity"] = input("quantity: ")
+    #         self.item_dict["price"] = input("price: ")
+    #         self.item_dict["bar_code"] = input("bar_code: ")
+    #         self.item_dict["item_id"] = input("item_id: ")
+    #         db.append(self.item_dict)
 
 # Declaring DataBase class
 
@@ -85,12 +83,10 @@ class DataBase:
 
     def search(self, input_text):
         for item in self.list:
-            if item["name_ENG"] == input_text:
+            if item["name_ENG"].lower() == input_text:
                 return item
         else:
             print(f"{input_text} is not in the Storage")
-    
-
 
 
 
@@ -160,10 +156,27 @@ while log.on:
                     search_box_input = input("Enter text: ").lower()
                     if search_box_input == "close":
                         search_box_on = False                        
+                    
                     else:
                         item = db_main.search(search_box_input)
-        else:
-            continue
+                        if item:
+                            item = Item(item)
+                            item_window_on = True
+                            while item_window_on:
+                                print(f"Window {item.name_ENG}",
+                                "\nAvailable Buttons: [close] [sell] [return]",
+                                "[add to storage]")    
+                                item_window_input = input("Enter button name: ")
+                                if item_window_input == "close":
+                                    item_window_on = False
+                                elif item_window_input == "sell":
+                                    print("Need to add sell method")
+                                elif item_window_input == "return":
+                                    print("Need to add return method")
+                                elif item_window_input == "add to storage":
+                                    print("need to add add to storage method")
+            else:
+                continue
     else:
         continue
         
