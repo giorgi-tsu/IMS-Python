@@ -67,6 +67,26 @@ class Item:
             self.item_dict["item_id"] = input("item_id: ")
             db.append(self.item_dict)
 
+# Declaring DataBase class
+
+class DataBase:
+    
+    def __init__(self, path):
+        self.list= []
+        try:
+            with open(path, "r") as csv_file:
+                csv_reader = csv.DictReader(csv_file)
+
+                for row in csv_reader:
+                    self.list.append(row)
+        except:
+            with open(path, "w") as csv_file:
+                pass
+
+
+
+
+
 # Declaring Log class
 
 class Log:
@@ -79,6 +99,7 @@ class Log:
         self.list = []
         self.search_window_on = True
     
+
     def close(self, date_time):
         self.on = False
         self.end_date = date_time.split()[0]
@@ -97,23 +118,6 @@ class Log:
 
 # Loading the database
     
-try:
-    print("try:")
-    db = []
-    with open(r".\dbs\main_db.csv", "r") as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        
-        for row in csv_reader:
-            db.append(row)
-except:
-    print("except:")
-    db = []
-    with open(r".\dbs\main_db.csv", "w") as csv_file:
-        pass
-
-
-for item in db:
-    print(item)
 
 # with open(r".\dbs\main_db.csv", "w", newline="") as csv_file:
 #     csv_writer = csv.DictWriter(csv_file, fieldnames=Item.fieldnames)
@@ -121,7 +125,8 @@ for item in db:
 #     csv_writer.writerows(db)
 
 log = Log(str(datetime.now())[:-7])
-
+db_main_path = os.path.join(os.getcwd(), "dbs\main_db.csv")
+db_main = DataBase(db_main_path)
 
 while log.on:
     print("Window: Home \nAvailable Buttons: ",
@@ -146,8 +151,10 @@ while log.on:
                     print("Search Box")
                 
                     search_box_input = input("Enter text: ")
-                    if search_box_input == "stop":
-                        search_box_on = False
+                    if search_box_input == "close":
+                        search_box_on = False                        
+                    else:
+                        print(db_main.list)
         else:
             continue
     else:
