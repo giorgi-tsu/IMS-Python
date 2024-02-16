@@ -83,6 +83,13 @@ class DataBase:
             with open(path, "w") as csv_file:
                 pass
 
+    def search(self, input_text):
+        for item in self.list:
+            if item["name_ENG"] == input_text:
+                return item
+        else:
+            print(f"{input_text} is not in the Storage")
+    
 
 
 
@@ -155,6 +162,8 @@ while log.on:
                         search_box_on = False                        
                     else:
                         print(db_main.list)
+                        item = db_main.search(search_box_input)
+                        print(item)
         else:
             continue
     else:
