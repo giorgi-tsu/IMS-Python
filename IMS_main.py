@@ -157,13 +157,11 @@ while log.on:
                 while search_box_on:
                     print("Search Box")
                 
-                    search_box_input = input("Enter text: ")
+                    search_box_input = input("Enter text: ").lower()
                     if search_box_input == "close":
                         search_box_on = False                        
                     else:
-                        print(db_main.list)
                         item = db_main.search(search_box_input)
-                        print(item)
         else:
             continue
     else:
