@@ -12,7 +12,7 @@ import time
 
 # This folder contains all database files.
 
-# There is one main database "main_db" that keeps the stock of items.
+# There is one main database "db_main" that keeps the stock of items.
 
 try:
     os.mkdir(r".\dbs")
@@ -87,9 +87,7 @@ class DataBase:
                 return item
         else:
             print(f"{input_text} is not in the Storage")
-
-
-
+            
 # Declaring Log class
 
 class Log:
@@ -100,7 +98,6 @@ class Log:
         self.start_time = "-".join(date_time.split()[1].split(":"))
         self.on = True
         self.list = []
-        self.search_window_on = True
     
 
     def close(self, date_time):
@@ -118,89 +115,75 @@ class Log:
             csv_writer.writerows(self.list)
         print("Log has been closed!")
 
-
 # Loading the database
-    
 
 # with open(r".\dbs\main_db.csv", "w", newline="") as csv_file:
 #     csv_writer = csv.DictWriter(csv_file, fieldnames=Item.fieldnames)
 #     csv_writer.writeheader()
 #     csv_writer.writerows(db)
 
-log = Log(str(datetime.now())[:-7])
+
+def window_home(log, db):
+    while True:
+        print("Window: Home \nAvailable Buttons: ",
+          "[quit] [search]")
+        window_home_input = input("Enter button name: ").lower()
+        if window_home_input == "quit":
+            log.close(str(datetime.now())[:-7])
+            break
+        elif window_home_input == "search":
+            window_search(log, db)
+        else:
+            continue
+
+
+def window_search(log, db):
+    while True:
+        print("Window: Search \nAvailable Buttons: [home]",
+              "[search box]")
+        window_search_input = input("Enter button name: ").lower()
+        if window_search_input == "home":
+            break
+        elif window_search_input == "search box":
+            search_box(log, db)
+        else:
+            continue
+            
+def search_box(log, db):
+    while True:
+        print("Search Box")
+        search_box_input = input("Enter text (Enter [close] "
+                                 "to close Search Box): ").lower()
+        if search_box_input == "close":
+            break
+        else:
+            item = db.search(search_box_input)
+            if item:
+                window_item(item)
+            else:
+                continue
+                    
+def window_item(item):
+    while True:
+        print(f"Window {item.name_ENG}",
+              "\nAvailable Buttons: [close] [sell]"
+              "[return] [add to storage]")    
+        item_window_input = input("Enter button name: ")
+        if item_window_input == "close":
+            break
+        elif item_window_input == "sell":
+            print("Need to add sell method")
+        elif item_window_input == "return":
+            print("Need to add return method")
+        elif item_window_input == "add to storage":
+            print("need to add add to storage method")
+        else:
+            continue
+
+# Main loop
+
+log_main = Log(str(datetime.now())[:-7])
 db_main_path = os.path.join(os.getcwd(), "dbs\main_db.csv")
 db_main = DataBase(db_main_path)
 
-while log.on:
-    print("Window: Home \nAvailable Buttons: ",
-          "[quit] [search]")
-    home_window_input = input("Enter button name: ").lower()
-    if home_window_input == "quit":
-        log.close(str(datetime.now())[:-7])
-    
-    elif home_window_input == "search":
-        search_window_on = True
-        while search_window_on:
-            print("Window: Search \nAvailable Buttons: [home]",
-              "[search box]")
-            search_window_input = \
-                input("Enter button name: ").lower()
-            if search_window_input == "home":
-                search_window_on = False
-            
-            elif search_window_input == "search box":
-                search_box_on = True
-                while search_box_on:
-                    print("Search Box")
-                
-                    search_box_input = input("Enter text: ").lower()
-                    if search_box_input == "close":
-                        search_box_on = False                        
-                    
-                    else:
-                        item = db_main.search(search_box_input)
-                        if item:
-                            item = Item(item)
-                            item_window_on = True
-                            while item_window_on:
-                                print(f"Window {item.name_ENG}",
-                                "\nAvailable Buttons: [close] [sell] [return]",
-                                "[add to storage]")    
-                                item_window_input = input("Enter button name: ")
-                                if item_window_input == "close":
-                                    item_window_on = False
-                                elif item_window_input == "sell":
-                                    print("Need to add sell method")
-                                elif item_window_input == "return":
-                                    print("Need to add return method")
-                                elif item_window_input == "add to storage":
-                                    print("need to add add to storage method")
-            else:
-                continue
-    else:
-        continue
-        
-        
-        
-
-    # elif home_window == "search":
-    #     log.search_window_on = True
-
-    #     while log.search_window_on:
-    #         log.search(db_list)
-
-    #     log.end_time = str(datetime.now())[:-7]
-
-    # else:
-    #     continue
-
-    # print("log loop is complete")
-
-
-# Saving Log to a csv file.
-
-
-
-
-
-
+window_home(log=log_main, db=db_main)
