@@ -15,15 +15,20 @@ db_main_path = os.path.join(os.getcwd(), "dbs/main_db.csv")
 def input_to_int(input_prompt):
     while True:
         input_string = input(input_prompt)
+        if input_string == "":
+            return ""
         try:
             input_int = int(input_string)
             return input_int
         except:
             continue
 
+
 def input_to_float(input_prompt):
     while True:
         input_string = input(input_prompt)
+        if input_string == "":
+            return ""
         try:
             input_int = float(input_string)
             return input_int
@@ -106,13 +111,22 @@ def window_item(item):
 
 def window_item_sell(item):
     window_item_sell = True
+    
     while window_item_sell:
         print(f"Window {item.name_ENG}/Sell",
               f"\nUnit: {item.item_dict["unit"]}"
               f"\nPrice per unit: {item.item_dict["price"]}"
               "\nAvailable Buttons: [close]")
-        quantity = input_to_int("Enter quantity: ")
+    
+        while True:
+            quantity = input_to_int("Enter quantity: ")
+            if quantity != "":
+                break
         unit_price = input_to_float("Enter unit price: ")
+    
+        if unit_price == "":
+            unit_price = int(item.item_dict["price"])
+    
         while True:
             check = input("Is this correct?\n"
                         f"Name_ENG: {item.name_ENG}; "
@@ -160,7 +174,8 @@ class Item:
     
     def sell(self, quantity, unit_price):
         
-        self.item_dict["quantity"] -= quantity
+        self.item_dict["quantity"] = \
+            int(self.item_dict["quantity"]) - quantity
         print(self.item_dict["quantity"])
 
 class DataBase:
