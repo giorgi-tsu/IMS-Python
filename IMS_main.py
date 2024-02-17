@@ -12,6 +12,25 @@ db_main_path = os.path.join(os.getcwd(), "dbs/main_db.csv")
 
 # Function definitions
 
+def input_to_int(input_prompt):
+    while True:
+        input_string = input(input_prompt)
+        try:
+            input_int = int(input_string)
+            return input_int
+        except:
+            continue
+
+def input_to_float(input_prompt):
+    while True:
+        input_string = input(input_prompt)
+        try:
+            input_int = float(input_string)
+            return input_int
+        except:
+            continue
+
+
 def create_directories():
     if not os.path.exists("./dbs"):
         os.mkdir("./dbs")
@@ -24,7 +43,7 @@ def create_directories():
         print("Directory logs created.")
     else:
         print("Directory logs already exists!")
-  
+
 
 def window_home(log, db):
     while True:
@@ -76,7 +95,7 @@ def window_item(item):
         if item_window_input == "close":
             break
         elif item_window_input == "sell":
-            print("Need to add sell method")
+            window_item_sell(item)
         elif item_window_input == "return":
             print("Need to add return method")
         elif item_window_input == "add to storage":
@@ -85,6 +104,33 @@ def window_item(item):
             continue
 
 
+def window_item_sell(item):
+    window_item_sell = True
+    while window_item_sell:
+        print(f"Window {item.name_ENG}/Sell",
+              f"\nUnit: {item.item_dict["unit"]}"
+              f"\nPrice per unit: {item.item_dict["price"]}"
+              "\nAvailable Buttons: [close]")
+        quantity = input_to_int("Enter quantity: ")
+        unit_price = input_to_float("Enter unit price: ")
+        while True:
+            check = input("Is this correct?\n"
+                        f"Name_ENG: {item.name_ENG}; "
+                        f"Price per unit: {unit_price}; "
+                        f"Quantity: {quantity}; "
+                        f"Total Price: {quantity * unit_price}; \n"
+                        "If YES: enter [Y]\n"
+                        "If NO: enter [N]\n"
+                        "Enter your response here: ").lower()
+            if check == "y":
+                item.sell(quantity, unit_price)
+                window_item_sell = False
+                break
+            elif check == "n":
+                break
+            else:
+                continue
+            
 # Class definitions
 
 class Item:
@@ -102,7 +148,7 @@ class Item:
             self.item_dict["name_ENG"] = name_ENG
             self.item_dict["name_GEO"] = name_GEO
             self.item_dict["unit"] = unit
-            self.item_dict["quantity"] = quantity
+            self.item_dict["quantity"] = int(quantity)
             self.item_dict["price"] = price
             self.item_dict["bar_code"] = bar_code
             self.item_dict["item_id"] = item_id
@@ -111,7 +157,11 @@ class Item:
             self.name_ENG = input_dict["name_ENG"]
             self.name_GEO = input_dict["name_GEO"]
             self.item_dict = input_dict
-
+    
+    def sell(self, quantity, unit_price):
+        
+        self.item_dict["quantity"] -= quantity
+        print(self.item_dict["quantity"])
 
 class DataBase:
     
