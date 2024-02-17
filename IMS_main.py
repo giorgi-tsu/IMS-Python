@@ -128,6 +128,9 @@ def search_box(log, db):
 def window_item(item):
     while True:
         print(f"Window {item.name_ENG}",
+              f"\nUnit: {item.item_dict["unit"]}"
+              f"\nAvailable Quantity: {item.item_dict["quantity"]}"
+              f"\nPrice per unit: {item.item_dict["price"]}"
               "\nAvailable Buttons: [close] [sell] "
               "[return] [add to storage]")    
         item_window_input = input("Enter button name: ")
@@ -136,9 +139,9 @@ def window_item(item):
         elif item_window_input == "sell":
             window_item_sell(item)
         elif item_window_input == "return":
-            print("Need to add return method")
+            print("In progress")
         elif item_window_input == "add to storage":
-            print("need to add add to storage method")
+            print("In progress")
         else:
             continue
 
@@ -149,15 +152,14 @@ def window_item_sell(item):
     while window_item_sell:
         print(f"Window {item.name_ENG}/Sell",
               f"\nUnit: {item.item_dict["unit"]}"
+              f"\nAvailable Quantity: {item.item_dict["quantity"]}"
               f"\nPrice per unit: {item.item_dict["price"]}"
               "\nAvailable Buttons: [close]")
-    
         while True:
             quantity = input_to_int("Enter quantity: ")
             if quantity != "":
                 break
         unit_price = input_to_float("Enter unit price: ")
-    
         if unit_price == "":
             unit_price = int(item.item_dict["price"])
     
@@ -171,14 +173,16 @@ def window_item_sell(item):
                         "If NO: enter [N]\n"
                         "Enter your response here: ").lower()
             if check == "y":
-                item.sell(quantity, unit_price)
-                window_item_sell = False
+                result = item.sell(quantity, unit_price)
+                if result == "sold":
+                    window_item_sell = False
                 break
             elif check == "n":
                 break
             else:
                 continue
-            
+    item.print() # washale
+
 # Class definitions
 
 class Item:
@@ -205,12 +209,22 @@ class Item:
             self.name_ENG = input_dict["name_ENG"]
             self.name_GEO = input_dict["name_GEO"]
             self.item_dict = input_dict
+            self.item_dict["quantity"] =\
+                int(self.item_dict["quantity"])
     
     def sell(self, quantity, unit_price):
         
-        self.item_dict["quantity"] = \
-            int(self.item_dict["quantity"]) - quantity
-        print(self.item_dict["quantity"])
+        if quantity > self.item_dict["quantity"]:
+            print("Quantity is not available!")
+            return
+        else:
+            self.item_dict["quantity"] -= quantity
+            return "sold"
+    
+    def print(self):
+        for key in self.item_dict:
+            print(f"{key}: {self.item_dict[key]}")
+
 
 class DataBase:
     
