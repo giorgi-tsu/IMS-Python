@@ -13,6 +13,23 @@ db_main_path = os.path.join(os.getcwd(), "dbs/main_db.csv")
 # Function definitions
 
 def input_to_int(input_prompt):
+    """
+    Convert user input to an integer.
+
+    This function repeatedly prompts the user for input using 
+    the given input prompt until the user enters a valid integer. 
+    If the user enters an empty string, an empty string is returned.
+    If the user enters a non-integer value, the function
+    continues to prompt the user until a valid integer is entered.
+
+    Parameters:
+    input_prompt (str): The prompt to display to the user.
+
+    Returns:
+    int or str: The integer value entered by the user, 
+    or an empty string if the user entered an empty string.
+    
+    """
     while True:
         input_string = input(input_prompt)
         if input_string == "":
@@ -20,19 +37,36 @@ def input_to_int(input_prompt):
         try:
             input_int = int(input_string)
             return input_int
-        except:
+        except ValueError:
             continue
 
 
 def input_to_float(input_prompt):
+    """
+    Convert user input to a float.
+
+    This function repeatedly prompts the user for input using
+    the given input prompt until the user enters a valid float.
+    If the user enters an empty string, an empty string is returned.
+    If the user enters a non-float value, the function continues 
+    to prompt the user until a valid float is entered.
+
+    Parameters:
+    input_prompt (str): The prompt to display to the user.
+
+    Returns:
+    float or str: The float value entered by the user,
+    or an empty string if the user entered an empty string.
+    
+    """
     while True:
         input_string = input(input_prompt)
         if input_string == "":
             return ""
         try:
-            input_int = float(input_string)
-            return input_int
-        except:
+            input_float = float(input_string)
+            return input_float
+        except ValueError:
             continue
 
 
