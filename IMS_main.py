@@ -161,7 +161,7 @@ def window_item_sell(item):
                 break
         unit_price = input_to_float("Enter unit price: ")
         if unit_price == "":
-            unit_price = int(item.item_dict["price"])
+            unit_price = float(item.item_dict["price"])
     
         while True:
             check = input("Is this correct?\n"
@@ -234,13 +234,14 @@ class DataBase:
     
     def __init__(self, path):
         self.list= []
+        self.path = path
         try:
-            with open(path, "r") as csv_file:
+            with open(self.path, "r") as csv_file:
                 csv_reader = csv.DictReader(csv_file)
                 for row in csv_reader:
                     self.list.append(row)
         except:
-            with open(path, "w"):
+            with open(self.path, "w"):
                 pass
 
     def search(self, input_text):
@@ -249,6 +250,15 @@ class DataBase:
                 return item
         else:
             print(f"{input_text} is not in the Storage")
+    
+    def dump_to_csv(self):
+        with open(self.path, "w", newline="") as csv_file:
+            fieldnames = self.list[0].keys()
+            csv_writer = csv.DictWriter(csv_file, fieldnames)
+
+            csv_writer.writeheader()
+            csv_writer.writerows(self.list)
+
 
 
 class Log:
@@ -272,6 +282,7 @@ class Log:
             csv_writer = csv.DictWriter(csv_file, fieldnames)
             csv_writer.writeheader()
             csv_writer.writerows(self.list)
+        db_main.dump_to_csv()
         print("Log has been closed!")
 
 
