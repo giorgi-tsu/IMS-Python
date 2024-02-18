@@ -228,6 +228,10 @@ class Item:
 
 class DataBase:
     
+    """
+    This is a docstring
+    """
+    
     def __init__(self, path):
         self.list= []
         try:
