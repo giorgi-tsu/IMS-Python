@@ -229,7 +229,7 @@ class Item:
 class DataBase:
     
     """
-    This is a docstring
+    This class creates a database object.
     """
     
     def __init__(self, path):
