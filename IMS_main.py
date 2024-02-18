@@ -229,7 +229,7 @@ class Item:
 class DataBase:
     
     """
-    This class creates a database object.
+    This class creates a database object. Test
     """
     
     def __init__(self, path):
