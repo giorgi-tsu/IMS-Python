@@ -229,40 +229,64 @@ class Item:
 class DataBase:
     
     """
-    
+    A simple database class for managing data stored in a CSV
+    file.
+
+    Parameters:
+    - path (str): The file path to the CSV file.
+
+    Attributes:
+    - db_list (list): A list to store the data read from 
+    the CSV file.
+    - path (str): The file path to the CSV file.
+
+    Methods:
+    - __init()__(path): Initializes the database by reading data
+    from the CSV file specified by the path.
+    - search(input_text): Searches for a dictionary in the database
+    where the "name_ENG" key mathces the input_text.
+    - dump_to_csv(): Writes the contents (list of dictionaries
+    referenced by db_list attribute) to the CSV file
+    specified by the path. 
     """
     
     def __init__(self, path):
-        self.list= []
+        self.db_list= []
         self.path = path
         try:
             with open(self.path, "r") as csv_file:
                 csv_reader = csv.DictReader(csv_file)
                 for row in csv_reader:
-                    self.list.append(row)
+                    self.db_list.append(row)
         except:
             with open(self.path, "w"):
                 pass
+
 
     def search(self, input_text):
         # item is a dictionary and the search methods
         # looks for the dictionary whose key (name_ENG)
         # has the desired value(input_text)
-        for item in self.list:
+        for item in self.db_list:
             if item["name_ENG"].lower() == input_text:
                 return item
         else:
             # If no item matches with input text, the method
             # returns None and prints the message below.
             print(f"{input_text} is not in the Storage")
-    
+
+
+    def add_to_db(self, input_dict):
+        self.db_list.append(input_dict)
+
+
     def dump_to_csv(self):
         with open(self.path, "w", newline="") as csv_file:
-            fieldnames = self.list[0].keys()
+            fieldnames = self.db_list[0].keys()
             csv_writer = csv.DictWriter(csv_file, fieldnames)
 
             csv_writer.writeheader()
-            csv_writer.writerows(self.list)
+            csv_writer.writerows(self.db_list)
 
 
 
