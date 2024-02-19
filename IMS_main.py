@@ -322,3 +322,5 @@ log_main = Log(str(datetime.now())[:-7])
 db_main = DataBase(db_main_path)
 
 window_home(log=log_main, db=db_main)
+
+# logs need to be improved
