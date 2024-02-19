@@ -318,7 +318,7 @@ class Log:
 create_directories()
 
 log_main = Log(str(datetime.now())[:-7])
-# db main structure to be redefiends
+
 db_main = DataBase(db_main_path)
 
 window_home(log=log_main, db=db_main)
