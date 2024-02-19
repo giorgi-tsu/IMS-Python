@@ -16,7 +16,7 @@ def input_to_int(input_prompt):
     """
     Convert user input to an integer.
 
-    This function repeatedly prompts the user for input using 
+    This function repeatedly prompts a user for input using 
     the given input prompt until the user enters a valid integer. 
     If the user enters an empty string, an empty string is returned.
     If the user enters a non-integer value, the function
@@ -86,7 +86,7 @@ def create_directories():
 
 def window_home(log, db):
     while True:
-        print("Window: Home \nAvailable Buttons: ",
+        print("Window Name: Home \nAvailable Buttons: ",
           "[quit] [search]")
         window_home_input = input("Enter button name: ").lower()
         if window_home_input == "quit":
@@ -100,7 +100,7 @@ def window_home(log, db):
 
 def window_search(log, db):
     while True:
-        print("Window: Search \nAvailable Buttons: [home]",
+        print("Window Name: Search \nAvailable Buttons: [home]",
               "[search box]")
         window_search_input = input("Enter button name: ").lower()
         if window_search_input == "home":
@@ -229,7 +229,7 @@ class Item:
 class DataBase:
     
     """
-    This class creates a database object. Test
+    
     """
     
     def __init__(self, path):
@@ -245,10 +245,15 @@ class DataBase:
                 pass
 
     def search(self, input_text):
+        # item is a dictionary and the search methods
+        # looks for the dictionary whose key (name_ENG)
+        # has the desired value(input_text)
         for item in self.list:
             if item["name_ENG"].lower() == input_text:
                 return item
         else:
+            # If no item matches with input text, the method
+            # returns None and prints the message below.
             print(f"{input_text} is not in the Storage")
     
     def dump_to_csv(self):
