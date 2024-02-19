@@ -140,8 +140,6 @@ def window_item(item):
             window_item_sell(item)
         elif item_window_input == "return":
             print("In progress")
-        elif item_window_input == "add to storage":
-            print("In progress")
         else:
             continue
 
