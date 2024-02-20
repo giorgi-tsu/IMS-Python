@@ -141,7 +141,7 @@ def window_item(item):
         elif item_window_input == "sell":
             window_item_sell(item)
         elif item_window_input == "refill":
-            print("Under development")
+            window_item_refill(item)
         else:
             continue
 
@@ -185,6 +185,45 @@ def window_item_sell(item):
             else:
                 continue
 
+
+def window_item_refill(item):
+    window_item_refill = True
+    
+    while window_item_refill:
+        print(f"Window Name: {item.name_ENG}/Refill",
+              f"\nName_GEO: {item.name_ENG}"
+              f"\nUnit: {item.item_dict["unit"]}"
+              f"\nAvailable Quantity: {item.item_dict["quantity"]}"
+              f"\nPrice per unit: {item.item_dict["price"]}"
+              "\nAvailable Buttons: [close]")
+        while True:
+            quantity = input_to_int("Enter quantity: ")
+            if quantity != "":
+                break
+        unit_price = input_to_float("Enter new price "
+                    "or press [Enter]: ")
+        if unit_price == "":
+            unit_price = item.item_dict["price"]
+    
+        while True:
+            check = input("Is this correct?\n"
+                        f"Name_ENG: {item.name_ENG}; "
+                        f"Name_GEO: {item.name_GEO}; "
+                        f"Price per unit: {unit_price}; "
+                        f"Quantity: {quantity}; \n"
+                        "If YES: enter [Y]\n"
+                        "If NO: enter [N]\n"
+                        "Enter your response here: ").lower()
+            if check == "y":
+                result = item.refill(quantity, unit_price)
+                if result == "refilled":
+                    window_item_refill = False
+                break
+            elif check == "n":
+                break
+            else:
+                continue
+
 # Class definitions
 
 class Item:
@@ -216,6 +255,7 @@ class Item:
             self.item_dict["price"] =\
                 float(self.item_dict["price"])
     
+
     def sell(self, quantity, unit_price):
         if quantity > self.item_dict["quantity"]:
             print("Quantity is not available!")
@@ -223,6 +263,12 @@ class Item:
         else:
             self.item_dict["quantity"] -= quantity
             return "sold"
+    
+
+    def refill(self, quantity, unit_price):
+        self.item_dict["quantity"] += quantity
+        return "refilled"
+
     
     def print(self):
         for key in self.item_dict:
