@@ -5,6 +5,7 @@ import csv
 from datetime import datetime
 import time
 
+
 # Constant variables
 
 db_main_path = os.path.join(os.getcwd(), "dbs/main_db.csv")
@@ -109,6 +110,7 @@ def window_search(log, db):
             search_box(log, db)
         else:
             continue
+
 # Why is log not active here?            
 def search_box(log, db):
     while True:
@@ -127,19 +129,19 @@ def search_box(log, db):
                     
 def window_item(item):
     while True:
-        print(f"Window {item.name_ENG}",
+        print(f"Window Name: {item.name_ENG}",
               f"\nUnit: {item.item_dict["unit"]}"
               f"\nAvailable Quantity: {item.item_dict["quantity"]}"
               f"\nPrice per unit: {item.item_dict["price"]}"
               "\nAvailable Buttons: [close] [sell] "
-              "[return] [add to storage]")    
+              "[refill] ")    
         item_window_input = input("Enter button name: ")
         if item_window_input == "close":
             break
         elif item_window_input == "sell":
             window_item_sell(item)
-        elif item_window_input == "return":
-            print("In progress")
+        elif item_window_input == "refill":
+            print("Under development")
         else:
             continue
 
@@ -148,7 +150,8 @@ def window_item_sell(item):
     window_item_sell = True
     
     while window_item_sell:
-        print(f"Window {item.name_ENG}/Sell",
+        print(f"Window Name: {item.name_ENG}/Sell",
+              f"\nName_GEO: {item.name_ENG}"
               f"\nUnit: {item.item_dict["unit"]}"
               f"\nAvailable Quantity: {item.item_dict["quantity"]}"
               f"\nPrice per unit: {item.item_dict["price"]}"
@@ -157,13 +160,15 @@ def window_item_sell(item):
             quantity = input_to_int("Enter quantity: ")
             if quantity != "":
                 break
-        unit_price = input_to_float("Enter unit price: ")
+        unit_price = input_to_float("Enter new price "
+                    "or press [Enter]: ")
         if unit_price == "":
-            unit_price = float(item.item_dict["price"])
+            unit_price = item.item_dict["price"]
     
         while True:
             check = input("Is this correct?\n"
                         f"Name_ENG: {item.name_ENG}; "
+                        f"Name_GEO: {item.name_GEO}; "
                         f"Price per unit: {unit_price}; "
                         f"Quantity: {quantity}; "
                         f"Total Price: {quantity * unit_price}; \n"
@@ -179,7 +184,6 @@ def window_item_sell(item):
                 break
             else:
                 continue
-    item.print() # washale
 
 # Class definitions
 
@@ -199,7 +203,7 @@ class Item:
             self.item_dict["name_GEO"] = name_GEO
             self.item_dict["unit"] = unit
             self.item_dict["quantity"] = int(quantity)
-            self.item_dict["price"] = price
+            self.item_dict["price"] = float(price)
             self.item_dict["bar_code"] = bar_code
             self.item_dict["item_id"] = item_id
 
@@ -209,9 +213,10 @@ class Item:
             self.item_dict = input_dict
             self.item_dict["quantity"] =\
                 int(self.item_dict["quantity"])
+            self.item_dict["price"] =\
+                float(self.item_dict["price"])
     
     def sell(self, quantity, unit_price):
-        # Why is unit price dimmed here?
         if quantity > self.item_dict["quantity"]:
             print("Quantity is not available!")
             return
