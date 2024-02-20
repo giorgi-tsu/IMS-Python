@@ -130,7 +130,43 @@ def search_box(log, db):
 
 
 def add_new_product(log, db):
-    while True
+    window_add_new_product = True
+    while window_add_new_product:
+        print(f"Window Name: Add New Product\n" 
+              "Enter Product Details Below") 
+        while True:
+            print("Entering New Product Details...")
+            new_item = {}
+            new_item["name_ENG"] = input("Enter name_ENG: ")
+            new_item["name_GEO"] = input("Enter name_GEO: ")
+            new_item["unit"] = input("Enter unit: ")
+            new_item["quantity"] = input("Enter quantity: ")
+            new_item["price"] = input("Enter price: ")
+            new_item["bar code"] = input("Enter bar code: ")
+            new_item["item_id"] = input("Enter item_id: ")
+
+            check = input("Is this correct?\n"
+                        f"Name_ENG: {new_item["name_ENG"]}; "
+                        f"Name_GEO: {new_item["name_GEO"]}; "
+                        f"Unit: {new_item["unit"]}; "
+                        f"Quantity: {new_item["quantity"]}; "
+                        f"Price per unit: {new_item["price"]}; "
+                        f"Bar Code: {new_item["bar code"]}; "
+                        f"Item ID: {new_item["item_id"]}; \n"
+                        "If YES: enter [Y]\n"
+                        "If NO: enter [N]\n"
+                        "Enter your response here: ").lower()
+            if check == "y":
+                db.list.append(new_item)
+                print(f"{new_item["name_ENG"]}"
+                    " has been added to the database!")         
+                break
+            elif check == "n":
+                continue
+            else:
+                continue
+
+
                     
 def window_item(item):
     while True:
