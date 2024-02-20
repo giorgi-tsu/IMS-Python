@@ -133,13 +133,24 @@ def add_new_product(log, db):
     window_add_new_product = True
     while window_add_new_product:
         print(f"Window Name: Add New Product\n" 
-              "Enter Product Details Below") 
+              "Enter Product Details Below"
+              "Enter [close] to close window: ") 
         while True:
-            print("Entering New Product Details...")
+            print("Entering New Product Details (Enter [close] "
+                  "to go back to search window...")
             new_item = {}
             new_item["name_ENG"] = input("Enter name_ENG: ")
+            if new_item["name_ENG"] == "close":
+                window_add_new_product = False
+                break
             new_item["name_GEO"] = input("Enter name_GEO: ")
+            if new_item["name_GEO"] == "close":
+                window_add_new_product = False
+                break
             new_item["unit"] = input("Enter unit: ")
+            if new_item["unit"] == "close":
+                window_add_new_product = False
+                break
             while True:
                 new_item["quantity"] = input_to_int("Enter "
                                                     "quantity: ")
@@ -153,16 +164,21 @@ def add_new_product(log, db):
                     break
                 else:
                     continue
-            new_item["bar code"] = input("Enter bar code: ")
+            new_item["bar_code"] = input("Enter bar code: ")
+            if new_item["bar_code"] == "close":
+                window_add_new_product = False
+                break
             new_item["item_id"] = input("Enter item_id: ")
-
+            if new_item["bar_code"] == "close":
+                window_add_new_product = False
+                break
             check = input("Is this correct?\n"
                         f"Name_ENG: {new_item["name_ENG"]}; "
                         f"Name_GEO: {new_item["name_GEO"]}; "
                         f"Unit: {new_item["unit"]}; "
                         f"Quantity: {new_item["quantity"]}; "
                         f"Price per unit: {new_item["price"]}; "
-                        f"Bar Code: {new_item["bar code"]}; "
+                        f"Bar Code: {new_item["bar_code"]}; "
                         f"Item ID: {new_item["item_id"]}; \n"
                         "If YES: enter [Y]\n"
                         "If NO: enter [N]\n"
