@@ -140,8 +140,19 @@ def add_new_product(log, db):
             new_item["name_ENG"] = input("Enter name_ENG: ")
             new_item["name_GEO"] = input("Enter name_GEO: ")
             new_item["unit"] = input("Enter unit: ")
-            new_item["quantity"] = input("Enter quantity: ")
-            new_item["price"] = input("Enter price: ")
+            while True:
+                new_item["quantity"] = input_to_int("Enter "
+                                                    "quantity: ")
+                if new_item["quantity"] != "":
+                    break
+                else:
+                    continue            
+            while True:
+                new_item["price"] = input_to_float("Enter price: ")
+                if new_item["price"] !="":
+                    break
+                else:
+                    continue
             new_item["bar code"] = input("Enter bar code: ")
             new_item["item_id"] = input("Enter item_id: ")
 
@@ -157,7 +168,7 @@ def add_new_product(log, db):
                         "If NO: enter [N]\n"
                         "Enter your response here: ").lower()
             if check == "y":
-                db.list.append(new_item)
+                db.db_list.append(new_item)
                 print(f"{new_item["name_ENG"]}"
                     " has been added to the database!")         
                 break
@@ -165,7 +176,6 @@ def add_new_product(log, db):
                 continue
             else:
                 continue
-
 
                     
 def window_item(item):
