@@ -211,7 +211,7 @@ class Item:
                 int(self.item_dict["quantity"])
     
     def sell(self, quantity, unit_price):
-        
+        # Why is unit price dimmed here?
         if quantity > self.item_dict["quantity"]:
             print("Quantity is not available!")
             return
