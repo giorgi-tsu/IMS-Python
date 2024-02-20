@@ -111,7 +111,6 @@ def window_search(log, db):
         else:
             continue
 
-# Why is log not active here?            
 def search_box(log, db):
     while True:
         print("Search Box")
