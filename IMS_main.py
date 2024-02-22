@@ -11,6 +11,7 @@ import time
 db_main_path = os.path.join(os.getcwd(), "dbs/main_db.csv")
 
 
+
 # Function definitions
 
 def input_to_int(input_prompt):
@@ -120,6 +121,7 @@ def window_search(log, db):
         else:
             continue
 
+
 def search_box(log, db):
     while True:
         print("Search Box")
@@ -142,9 +144,9 @@ def add_new_product(log, db):
     while window_add_new_product:
         print(f"Window Name: Add New Product\n" 
               "Enter Product Details Below "
-              "Enter [0. close] to close window: ") 
+              "Enter [0. close] to close window ") 
         while True:
-            print("Entering New Product Details (Enter [close] "
+            print("Entering New Product Details (Enter [0. close] "
                   "to go back to search window...)")
             new_item = {}
             new_item["name_ENG"] = input("Enter name_ENG: ")
@@ -213,9 +215,9 @@ def window_item(item):
               f"\nUnit: {item.item_dict["unit"]}"
               f"\nAvailable Quantity: {item.item_dict["quantity"]}"
               f"\nPrice per unit: {item.item_dict["price"]}"
-              "\nAvailable Buttons: [close] [sell] "
-              "[refill] ")    
-        item_window_input = input("Enter button name: ")
+              "\nAvailable Buttons: [0. close] [1. sell] "
+              "[2. refill] ")    
+        item_window_input = input("Enter button name\\number: ")
         if item_window_input == "close":
             break
         elif item_window_input == "sell":
