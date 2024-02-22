@@ -88,9 +88,11 @@ def create_directories():
 def window_home(log, db):
     while True:
         print("Window Name: Home \nAvailable Buttons: ",
-          "[quit] [search]")
-        window_home_input = input("Enter button name: ").lower()
-        if window_home_input == "quit":
+          "[0. quit] [1. search]")
+        window_home_input = input("Enter button name/"
+                                  "number: ").lower()
+        if window_home_input == "quit" or\
+        window_home_input == "quit":
             log.close(str(datetime.now())[:-7])
             break
         elif window_home_input == "search":
