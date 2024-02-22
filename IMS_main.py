@@ -218,11 +218,14 @@ def window_item(item):
               "\nAvailable Buttons: [0. close] [1. sell] "
               "[2. refill] ")    
         item_window_input = input("Enter button name\\number: ")
-        if item_window_input == "close":
+        if item_window_input == "close" or\
+            item_window_input == "0":
             break
-        elif item_window_input == "sell":
+        elif item_window_input == "sell" or\
+            item_window_input == "1":
             window_item_sell(item)
-        elif item_window_input == "refill":
+        elif item_window_input == "refill" or\
+            item_window_input == "2":
             window_item_refill(item)
         else:
             continue
