@@ -104,14 +104,17 @@ def window_home(log, db):
 
 def window_search(log, db):
     while True:
-        print("Window Name: Search \nAvailable Buttons: [home]",
-              "[search box] [add new product]")
+        print("Window Name: Search \nAvailable Buttons: [0. home]",
+              "[1. search box] [2. add new product]")
         window_search_input = input("Enter button name: ").lower()
-        if window_search_input == "home":
+        if window_search_input == "home" or\
+            window_search_input == "0":
             break
-        elif window_search_input == "search box":
+        elif window_search_input == "search box" or\
+            window_search_input == "1":
             search_box(log, db)
-        elif window_search_input == "add new product":
+        elif window_search_input == "add new product" or\
+            window_search_input == "2":
             add_new_product(log, db)
         else:
             continue
