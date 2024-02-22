@@ -302,6 +302,7 @@ def window_item_refill(item):
                         f"Quantity: {quantity}; \n"
                         "If YES: enter [Y]\n"
                         "If NO: enter [N]\n"
+                        "Enter [0. close] to close window\n"
                         "Enter your response here: ").lower()
             if check == "y":
                 result = item.refill(quantity, unit_price)
