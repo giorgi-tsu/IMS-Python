@@ -92,10 +92,11 @@ def window_home(log, db):
         window_home_input = input("Enter button name/"
                                   "number: ").lower()
         if window_home_input == "quit" or\
-        window_home_input == "quit":
+        window_home_input == "0":
             log.close(str(datetime.now())[:-7])
             break
-        elif window_home_input == "search":
+        elif window_home_input == "search" or\
+            window_home_input == "1":
             window_search(log, db)
         else:
             continue
