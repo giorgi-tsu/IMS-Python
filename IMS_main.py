@@ -122,9 +122,10 @@ def window_search(log, db):
 def search_box(log, db):
     while True:
         print("Search Box")
-        search_box_input = input("Enter text (Enter [close] "
+        search_box_input = input("Enter text (Enter [0. close] "
                                  "to close Search Box): ").lower()
-        if search_box_input == "close":
+        if search_box_input == "close" or\
+            search_box_input == "0":
             break
         else:
             item = db.search(search_box_input)
@@ -139,22 +140,25 @@ def add_new_product(log, db):
     window_add_new_product = True
     while window_add_new_product:
         print(f"Window Name: Add New Product\n" 
-              "Enter Product Details Below"
-              "Enter [close] to close window: ") 
+              "Enter Product Details Below "
+              "Enter [0. close] to close window: ") 
         while True:
             print("Entering New Product Details (Enter [close] "
                   "to go back to search window...)")
             new_item = {}
             new_item["name_ENG"] = input("Enter name_ENG: ")
-            if new_item["name_ENG"] == "close":
+            if new_item["name_ENG"] == "close" or\
+                new_item["name_ENG"] == "0":
                 window_add_new_product = False
                 break
             new_item["name_GEO"] = input("Enter name_GEO: ")
-            if new_item["name_GEO"] == "close":
+            if new_item["name_GEO"] == "close" or\
+                new_item["name_GEO"] == "0":
                 window_add_new_product = False
                 break
             new_item["unit"] = input("Enter unit: ")
-            if new_item["unit"] == "close":
+            if new_item["unit"] == "close" or\
+                new_item["unit"] == "0":
                 window_add_new_product = False
                 break
             while True:
@@ -163,7 +167,7 @@ def add_new_product(log, db):
                 if new_item["quantity"] != "":
                     break
                 else:
-                    continue            
+                    continue
             while True:
                 new_item["price"] = input_to_float("Enter price: ")
                 if new_item["price"] !="":
@@ -171,11 +175,13 @@ def add_new_product(log, db):
                 else:
                     continue
             new_item["bar_code"] = input("Enter bar code: ")
-            if new_item["bar_code"] == "close":
+            if new_item["bar_code"] == "close" or\
+                new_item["bar_code"] == "0":
                 window_add_new_product = False
                 break
             new_item["item_id"] = input("Enter item_id: ")
-            if new_item["bar_code"] == "close":
+            if new_item["bar_code"] == "close" or\
+                new_item["bar_code"] == "0":
                 window_add_new_product = False
                 break
             check = input("Is this correct?\n"
