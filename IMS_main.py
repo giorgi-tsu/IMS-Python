@@ -240,7 +240,7 @@ def window_item_sell(item):
               f"\nUnit: {item.item_dict["unit"]}"
               f"\nAvailable Quantity: {item.item_dict["quantity"]}"
               f"\nPrice per unit: {item.item_dict["price"]}"
-              "\nAvailable Buttons: [close]")
+              "\nAvailable Buttons: [0. close]")
         while True:
             quantity = input_to_int("Enter quantity: ")
             if quantity != "":
@@ -259,6 +259,7 @@ def window_item_sell(item):
                         f"Total Price: {quantity * unit_price}; \n"
                         "If YES: enter [Y]\n"
                         "If NO: enter [N]\n"
+                        "Enter [0. close] to close window\n"
                         "Enter your response here: ").lower()
             if check == "y":
                 result = item.sell(quantity, unit_price)
@@ -266,6 +267,9 @@ def window_item_sell(item):
                     window_item_sell = False
                 break
             elif check == "n":
+                break
+            elif check == "close" or check == "0":
+                window_item_sell = False
                 break
             else:
                 continue
@@ -280,7 +284,7 @@ def window_item_refill(item):
               f"\nUnit: {item.item_dict["unit"]}"
               f"\nAvailable Quantity: {item.item_dict["quantity"]}"
               f"\nPrice per unit: {item.item_dict["price"]}"
-              "\nAvailable Buttons: [close]")
+              "\nAvailable Buttons: [0. close]")
         while True:
             quantity = input_to_int("Enter quantity: ")
             if quantity != "":
@@ -305,6 +309,9 @@ def window_item_refill(item):
                     window_item_refill = False
                 break
             elif check == "n":
+                break
+            elif check == "close" or check == "0":
+                window_item_refill = False
                 break
             else:
                 continue
