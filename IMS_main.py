@@ -137,7 +137,7 @@ def add_new_product(log, db):
               "Enter [close] to close window: ") 
         while True:
             print("Entering New Product Details (Enter [close] "
-                  "to go back to search window...")
+                  "to go back to search window...)")
             new_item = {}
             new_item["name_ENG"] = input("Enter name_ENG: ")
             if new_item["name_ENG"] == "close":
