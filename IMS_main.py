@@ -208,7 +208,7 @@ def add_new_product(log, db):
             else:
                 continue
 
-                    
+# Item window smust be improvved                    
 def window_item(item):
     while True:
         print(f"Window Name: {item.name_ENG}",
